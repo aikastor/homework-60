@@ -3,6 +3,8 @@ import Container from "@material-ui/core/Container";
 import './Chat.css';
 import SendMessageForm from "../SendMessageForm/SendMessageForm";
 import Message from "../Message/Message";
+import Snackbar from "@material-ui/core/Snackbar";
+import SnackbarContent from "@material-ui/core/SnackbarContent";
 
 const messagesEndpoint = 'http://146.185.154.90:8000/messages/';
 
@@ -10,6 +12,7 @@ class Chat extends Component {
     state ={
         messages: [],
         currentMsg: '',
+        alert: false,
     };
     lastMsgTime = null;
 
@@ -59,7 +62,7 @@ class Chat extends Component {
             });
 
             if(response.ok) {
-                alert('Message sent') //Make some king of appearing msg MATERIAL UI from STATE
+                this.setState({currentMsg: '', alert: true})
             }
         }
 
@@ -81,6 +84,17 @@ class Chat extends Component {
                     onChange={this.handleChange}
                     value={this.state.currentMsg}
                     onSubmit={e => this.sendMsg(e)}/>
+                <Snackbar
+                    open={this.state.alert}
+                    autoHideDuration={2000}
+                    onClose={() => {this.setState({alert: false})}}
+                >
+                    <SnackbarContent style={{
+                        backgroundColor:'green',
+                    }}
+                                     message={<span>Message sent!</span>}
+                    />
+                </Snackbar>
             </Container>
         );
     }
