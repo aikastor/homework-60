@@ -88,11 +88,11 @@ class Chat extends Component {
                     open={this.state.alert}
                     autoHideDuration={2000}
                     onClose={() => {this.setState({alert: false})}}
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                 >
                     <SnackbarContent style={{
                         backgroundColor:'green',
-                    }}
-                                     message={<span>Message sent!</span>}
+                    }} message={<span>Message sent!</span>}
                     />
                 </Snackbar>
             </Container>
